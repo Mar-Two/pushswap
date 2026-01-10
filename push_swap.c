@@ -1,14 +1,13 @@
-
+#include "push_swap.h"
 #include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 
+/*
 typedef struct s_stack_a
 {
     long value;
     int index;
     struct s_stack_a *next;
-} t_stack_a;
+} t_stack;
 
 int is_a_digit(char *s)
 {
@@ -30,15 +29,15 @@ int is_a_digit(char *s)
     return (1);
 }
 
-void inserer_node(t_stack_a **pile_a, long value)
+void inserer_node(t_stack **pile_a, long value)
 {
-    t_stack_a *newnode;
-    t_stack_a *last;
+    t_stack *newnode;
+    t_stack *last;
 
-    newnode = malloc(sizeof(t_stack_a));
+    newnode = malloc(sizeof(t_stack));
     if (!newnode)
         return; 
-    newnode->value = (int)value;
+    newnode->value = value;
     newnode->next = NULL;
     if (*pile_a == NULL)
     {
@@ -65,9 +64,9 @@ void free_split(char **s_split)
     }
     free(s_split);
 }
-void free_stack(t_stack_a **stack)
+void free_stack(t_stack **stack)
 {
-    t_stack_a *tmp;
+    t_stack *tmp;
 
     if (!stack || !*stack)
         return;
@@ -80,15 +79,22 @@ void free_stack(t_stack_a **stack)
     *stack = NULL;
 }
 
-void exit_error(char **s_split,t_stack_a **pile_a)
+void exit_error(char **s_split,t_stack **pile_a)
 {
+    t_stack *tmp;
+
     if(s_split)
         free_split(s_split);
-    t_stack_a *tmp;
     if (pile_a && *pile_a)
         free_stack(pile_a);
     write(2, "Error\n", 6);
     exit(1);
+}
+
+void s_split_empty(char **s_split,t_stack **pile_a)
+{
+    if (!s_split || !s_split[0])
+        exit_error(s_split,pile_a);
 }
 
 int count_words(char *str, char c)
@@ -166,7 +172,7 @@ long ft_atoi(char *str)
     return res * sign;
 }
 
-long is_duplicate(t_stack_a *pile_a, long n)
+long is_duplicate(t_stack *pile_a, long n)
 {
     while (pile_a)
     {
@@ -177,7 +183,7 @@ long is_duplicate(t_stack_a *pile_a, long n)
     return (0);
 }
 
-void value_atoi(char **s_split,t_stack_a **pile_a)
+void value_atoi(char **s_split,t_stack **pile_a)
 {
     int k;
     long val;
@@ -198,37 +204,13 @@ void value_atoi(char **s_split,t_stack_a **pile_a)
         inserer_node(pile_a,val);    
         k++;
     }
-
-}
-/*
-void check_double(char **s_split,t_stack_a *pile_a)
-{
-    t_stack_a *tmp;
-    t_stack_a *actual;
-    int count;
-
-    actual = pile_a;
-    while (actual)
-    {
-        tmp = pile_a;
-        count = 0;
-        while(tmp)
-        {
-            if(actual->value == tmp->value)
-                count++;
-            tmp = tmp->next;
-        }
-        if(count > 1)
-            exit_error(s_split,&pile_a);
-        actual = actual->next;
-    }
 }*/
 
-void afficherListe(t_stack_a *maListe)
+void afficherListe(t_stack *maListe)
 {
     while(maListe)
     {
-        printf("[%ld]->",maListe->value);
+        printf("%ld\n",maListe->value);
         maListe = maListe->next;
     }
 }
@@ -237,9 +219,12 @@ int main(int argc, char *argv[])
 {
     int i;
     char **s_split;
-    t_stack_a *pile_a;
+    t_stack *a;
+    t_stack *b;
+    int len;
 
-    pile_a = NULL;
+    b = NULL;
+    a = NULL;
     s_split = NULL;
     if(argc < 2)
         return (1);
@@ -247,58 +232,51 @@ int main(int argc, char *argv[])
     while (i < argc)
     {
         s_split = ft_split(argv[i],' ');
-        if (!s_split || !s_split[0])
-        {
-            exit_error(s_split,&pile_a);
-        }
-        value_atoi(s_split,&pile_a);
+        s_split_empty(s_split,&a);
+        value_atoi(s_split,&a);
         free_split(s_split);
         s_split = NULL;
         i++;
     }
-    afficherListe(pile_a);
-    return 0;
+    len = length_stack(a);
+    //printf("%d",is_sorted(a));
+    afficherListe(a);
+    all_algo(&a, &b, len);
+    printf("Pile trier\n");
+    printf("<-------->\n");
+    afficherListe(a);
+    printf("Pile B\n");
+    printf("<-------->\n");
+    afficherListe(b);
+    /*
+    printf("PILE A\n");
+    afficherListe(a);
+    pb(&a,&b);
+    printf("PILE A\n");
+    afficherListe(a);
+    printf("PILE B\n");
+    afficherListe(b);
+    pb(&a,&b);
+    printf("PILE A\n");
+    afficherListe(a);
+    printf("PILE B\n");
+    afficherListe(b);
+    pa(&b,&a);
+    printf("PILE A\n");
+    afficherListe(a);
+    printf("PILE B\n");
+    afficherListe(b);
+    pa(&b,&a);
+    printf("PILE A\n");
+    afficherListe(a);
+    printf("PILE B\n");
+    afficherListe(b);*/
+    //rra(&a,1);
+    //afficherListe(b);
+    /*
+    sa(&a,1);
+    afficherListe(a);
+    ra(&a,1);
+    afficherListe(a);*/
+    return (0);
 }
-
-/*
-int main(int argc, char *argv[])
-{
-    int i;
-    int j;
-    char **s_split;
-    int k;
-
-    if(argc < 2)
-        return (1);
-    i = 1;
-    k = 0;
-    while (i < argc)
-    {
-        s_split = ft_split(argv[i],' ');
-        if (!s_split || !s_split[0])
-        {
-            free_split(s_split);
-            write(2, "Error\n", 6);
-            return (1);
-        }
-        while (s_split[k])
-        {
-            if(!(is_a_digit(s_split[k])))
-            {
-                free_split(s_split);
-                exit_error();
-            }
-            long val = ft_atoi(s_split[k]);
-            if (val > INT_MAX || val < INT_MIN)
-            {
-                free_split(s_split);
-                exit_error();
-            }       
-            printf("%ld\n",val);
-            k++;
-        }
-       free_split(s_split);
-        i++;
-    }
-    return 0;
-}*/
