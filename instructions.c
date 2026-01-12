@@ -83,9 +83,7 @@ void ra(t_stack **stack,int n)
     first = *stack;
     last = *stack;
     while(last->next != NULL)
-    {
         last = last->next;
-    }
     *stack = first->next;
     last->next = first;
     first->next = NULL;
@@ -103,9 +101,7 @@ void rb(t_stack **stack,int n)
     first = *stack;
     last = *stack;
     while(last->next != NULL)
-    {
         last = last->next;
-    }
     *stack = first->next;
     last->next = first;
     first->next = NULL;

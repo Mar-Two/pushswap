@@ -214,6 +214,14 @@ void afficherListe(t_stack *maListe)
         maListe = maListe->next;
     }
 }
+void afficherindex(t_stack *maListe)
+{
+    while(maListe)
+    {
+        printf("index :%d valeur : %ld\n",maListe->index,maListe->value);
+        maListe = maListe->next;
+    }
+}
 
 int main(int argc, char *argv[])
 {
@@ -238,9 +246,10 @@ int main(int argc, char *argv[])
         s_split = NULL;
         i++;
     }
+    index_stack(&a);
     len = length_stack(a);
-    //printf("%d",is_sorted(a));
-    afficherListe(a);
+    all_algo(&a, &b, len);
+    /*afficherListe(a);
     all_algo(&a, &b, len);
     printf("Pile trier\n");
     printf("<-------->\n");
@@ -248,7 +257,6 @@ int main(int argc, char *argv[])
     printf("Pile B\n");
     printf("<-------->\n");
     afficherListe(b);
-    /*
     printf("PILE A\n");
     afficherListe(a);
     pb(&a,&b);
