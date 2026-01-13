@@ -71,7 +71,7 @@ void free_stack(t_stack **stack)
     *stack = NULL;
 }
 
-long ft_atoi(char *str)
+long ft_atoi_pushswap(char *str)
 {
     long res;
     int sign;

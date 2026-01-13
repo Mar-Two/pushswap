@@ -16,7 +16,7 @@ void s_split_empty(char **s_split,t_stack **pile_a)
         exit_error(s_split,pile_a);
 }
 
-long is_duplicate(t_stack *pile_a, long n)
+int is_duplicate(t_stack *pile_a, long n)
 {
     while (pile_a)
     {
@@ -31,6 +31,7 @@ void value_atoi(char **s_split,t_stack **pile_a)
 {
     int k;
     long val;
+    
     k = 0;
     while (s_split[k])
     {
@@ -38,7 +39,7 @@ void value_atoi(char **s_split,t_stack **pile_a)
         {
             exit_error(s_split,pile_a);
         }
-        val = ft_atoi(s_split[k]);
+        val = ft_atoi_pushswap(s_split[k]);
         if (val > 2147483647 || val < -2147483648)
         {
             exit_error(s_split,pile_a);
