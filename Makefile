@@ -1,5 +1,5 @@
 NAME = push_swap
-SRC = push_swap.c parsing_one.c parsing_two.c instructions.c big_algo.c small_algo.c function_algo.c
+SRC = push_swap.c parsing_one.c parsing_two.c instructions1.c instructions2.c instructions3.c instructions4.c big_algo.c small_algo.c function_algo.c
 OBJS = $(SRC:.c=.o)
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror

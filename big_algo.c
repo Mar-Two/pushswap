@@ -102,6 +102,8 @@ void algo_trie_grande_liste(t_stack **a,t_stack **b, int len)
 
     if (is_sorted(*a))
         return ;
+    if( len <= 50)
+        chunk = 9;
     if (len <= 200)
         chunk = 18;
     if (len > 200 && len <= 350)

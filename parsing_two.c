@@ -109,7 +109,8 @@ char **ft_split(char *str, char sep)
             j = 0;
             while (j < cc)
                 result[i][j++] = str[k++];
-            result[i++][j] = '\0';
+            result[i][j] = '\0';
+            i++;
         }
     }
     result[i] = NULL;
