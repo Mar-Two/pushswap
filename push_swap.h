@@ -7,9 +7,9 @@
 
 typedef struct s_stack
 {
-    long value;
-    int index;
-    struct s_stack *next;
+	long value;
+	int index;
+	struct s_stack *next;
 } t_stack;
 
 int is_a_digit(char *s);

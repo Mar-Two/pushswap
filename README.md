@@ -32,34 +32,34 @@ Utilisation du test de gemartin.
 Conformément aux consignes, voici comment l'IA a été utilisée pour ce projet :
 
 Traduction : 
-    Aide à la traduction des consignes et des benchmarks du sujet.
+	Aide à la traduction des consignes et des benchmarks du sujet.
 
 Architecture & Parsing : 
-    Discussion sur l'utilisation de ft_split pour gérer correctement les arguments envoyés entre guillemets.
+	Discussion sur l'utilisation de ft_split pour gérer correctement les arguments envoyés entre guillemets.
 
 Optimisation algorithmique :
-    Confirmation de la logique d'indexation des valeurs.
-    Introduction au concept de tri par "paquets" (Chunks) pour descendre sous la barre des 700 coups pour 100 nombres.
-    Conseil sur le réglage des paramètres de tri pour optimiser les performances sur les listes de 500 nombres.
+	Confirmation de la logique d'indexation des valeurs.
+	Introduction au concept de tri par "paquets" (Chunks) pour descendre sous la barre des 700 coups pour 100 nombres.
+	Conseil sur le réglage des paramètres de tri pour optimiser les performances sur les listes de 500 nombres.
 
 ## Algorithme choisi : Les Chunks
-    Pour optimiser le nombre d'opérations, j'ai implémenté un algorithme de pré-tri par groupes.
+	Pour optimiser le nombre d'opérations, j'ai implémenté un algorithme de pré-tri par groupes.
 
-    Indexation : 
-        Avant de commencer, chaque nombre reçoit un index (sa position s'il était trié).
+	Indexation : 
+		Avant de commencer, chaque nombre reçoit un index (sa position s'il était trié).
 
-    Découpage : 
-        On définit une taille de groupe (par exemple 15 nombres pour une liste de 100).
+	Découpage : 
+		On définit une taille de groupe (par exemple 15 nombres pour une liste de 100).
 
-    Transfert vers B : 
-        On parcourt la pile A. Si l'index d'un nombre appartient au groupe actuel (ex: entre 0 et 15), on le pousse dans la pile B. Une fois le groupe vide dans A, on passe au suivant (15 à 30, etc.).
+	Transfert vers B : 
+		On parcourt la pile A. Si l'index d'un nombre appartient au groupe actuel (ex: entre 0 et 15), on le pousse dans la pile B. Une fois le groupe vide dans A, on passe au suivant (15 à 30, etc.).
 
-    Optimisation des rotations : 
-        Pour gagner des coups, on vérifie si l'élément à pousser doit aller en haut ou en bas de la pile B en utilisant rb, ce qui permet de dégrossir le tri dès le transfert.
+	Optimisation des rotations : 
+		Pour gagner des coups, on vérifie si l'élément à pousser doit aller en haut ou en bas de la pile B en utilisant rb, ce qui permet de dégrossir le tri dès le transfert.
 
-    Tri final vers A : 
-        Une fois la pile A vide, on recherche le plus grand index dans B pour le replacer dans A. Comme les nombres sont déjà regroupés par valeurs proches, le nombre de rotations nécessaires est drastiquement réduit.
+	Tri final vers A : 
+		Une fois la pile A vide, on recherche le plus grand index dans B pour le replacer dans A. Comme les nombres sont déjà regroupés par valeurs proches, le nombre de rotations nécessaires est drastiquement réduit.
 
 ## Performances
-    100 nombres : 634 coups.
-    500 nombres : 5413 coups.
+	100 nombres : 634 coups.
+	500 nombres : 5413 coups.
